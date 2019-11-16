@@ -20,14 +20,22 @@ class QuizView: BaseView {
     
     lazy var inputTextField = CustomTextField(frame: .zero)
         .set(\.placeholder, to: "Insert Word")
+        .set(\.delegate, to: self)
     
     lazy var keywordsTableView = UITableView(frame: .zero, style: .plain)
         .set(\.showsHorizontalScrollIndicator, to: false)
+        .set(\.tableFooterView, to: UIView())
     
     lazy var progressView = ProgressView(frame: .zero)
     
+    private var progressViewBottomConstraint: NSLayoutConstraint?
+    private var progressViewBottomKeyboardConstraint: NSLayoutConstraint?
+    
     override func initialize() {
         backgroundColor = .white
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func addViews() {
@@ -59,8 +67,11 @@ class QuizView: BaseView {
             .anchor(top: keywordsTableView.bottomAnchor)
             .anchor(leading: leadingAnchor)
             .anchor(trailing: trailingAnchor)
-            .anchor(bottom: bottomAnchor)
             .anchor(height: heightAnchor, multiplier: 0.2)
+        
+        progressViewBottomConstraint = progressView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        progressViewBottomConstraint?.isActive = true
+        progressViewBottomKeyboardConstraint = nil
         
         loadingView
             .anchor(top: topAnchor)
@@ -68,5 +79,28 @@ class QuizView: BaseView {
             .anchor(trailing: trailingAnchor)
             .anchor(bottom: bottomAnchor)
     }
-
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let targetFrame = keyboardFrame.cgRectValue
+        
+        if let bottomConstraint = progressViewBottomKeyboardConstraint {
+            progressViewBottomConstraint?.isActive = false
+            bottomConstraint.isActive = true
+        } else {
+            progressViewBottomKeyboardConstraint = progressView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -targetFrame.height)
+            progressViewBottomConstraint?.isActive = false
+            progressViewBottomKeyboardConstraint?.isActive = true
+        }
+        layoutIfNeeded()
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        progressViewBottomKeyboardConstraint?.isActive = false
+        progressViewBottomConstraint?.isActive = true
+        layoutIfNeeded()
+    }
 }

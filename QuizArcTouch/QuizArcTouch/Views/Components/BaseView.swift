@@ -39,4 +39,15 @@ open class BaseView: UIView {
         initialize()
         addViews()
     }
+    
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        endEditing(true)
+    }
+}
+
+extension BaseView: UITextFieldDelegate {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        endEditing(true)
+        return false
+    }
 }
