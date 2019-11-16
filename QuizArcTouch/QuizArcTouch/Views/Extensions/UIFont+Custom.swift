@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIFont {
-    static let largeTitle = UIFont.boldSystemFont(ofSize: 34)
-    static let body = UIFont.systemFont(ofSize: 17)
-    static let button = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    static let largeTitle = UIFont(name: "SFProDisplay-Bold", size: 34)
+    static let body = UIFont(name: "SFProDisplay-Regular", size: 17)
+    static let button = UIFont(name: "SFProDisplay-Semibold", size: 17)
 }

@@ -26,6 +26,9 @@
 		E5FCBB4823806ABE0077903D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB4723806ABE0077903D /* LoadingView.swift */; };
 		E5FCBB4A23806B870077903D /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB4923806B870077903D /* CustomButton.swift */; };
 		E5FCBB4C23806E190077903D /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB4B23806E190077903D /* ProgressView.swift */; };
+		E5FCBB5623807F560077903D /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5FCBB5423807F560077903D /* SF-Pro-Display-Bold.otf */; };
+		E5FCBB5723807F560077903D /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5FCBB5523807F560077903D /* SF-Pro-Display-Regular.otf */; };
+		E5FCBB59238081E00077903D /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5FCBB58238081E00077903D /* SF-Pro-Display-Semibold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,9 @@
 		E5FCBB4723806ABE0077903D /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E5FCBB4923806B870077903D /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		E5FCBB4B23806E190077903D /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		E5FCBB5423807F560077903D /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Bold.otf"; path = "../../../../../../../SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
+		E5FCBB5523807F560077903D /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Regular.otf"; path = "../../../../../../../SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		E5FCBB58238081E00077903D /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +133,7 @@
 		E5FCBB22238042480077903D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E5FCBB4D23807F110077903D /* Fonts */,
 				E5FCBB09238041E10077903D /* Assets.xcassets */,
 				E5FCBB0B238041E10077903D /* LaunchScreen.storyboard */,
 			);
@@ -197,6 +204,16 @@
 				E5FCBB3C238059FB0077903D /* NSObject+BuilderChain.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E5FCBB4D23807F110077903D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E5FCBB58238081E00077903D /* SF-Pro-Display-Semibold.otf */,
+				E5FCBB5423807F560077903D /* SF-Pro-Display-Bold.otf */,
+				E5FCBB5523807F560077903D /* SF-Pro-Display-Regular.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +299,9 @@
 			files = (
 				E5FCBB0D238041E10077903D /* LaunchScreen.storyboard in Resources */,
 				E5FCBB0A238041E10077903D /* Assets.xcassets in Resources */,
+				E5FCBB59238081E00077903D /* SF-Pro-Display-Semibold.otf in Resources */,
+				E5FCBB5623807F560077903D /* SF-Pro-Display-Bold.otf in Resources */,
+				E5FCBB5723807F560077903D /* SF-Pro-Display-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
