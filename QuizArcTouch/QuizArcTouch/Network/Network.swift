@@ -83,7 +83,7 @@ class Network: NSObject {
                     } catch {
                         completion(.failure(NetworkError.parseError))
                     }
-                case 400...599:
+                case 400...499:
                     completion(.failure(NetworkError.unknown))
                 default:
                     completion(.failure(NetworkError.unknown))
