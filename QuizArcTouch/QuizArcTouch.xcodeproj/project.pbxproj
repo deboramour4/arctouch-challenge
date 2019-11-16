@@ -21,6 +21,9 @@
 		E5FCBB38238059830077903D /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB37238059830077903D /* UIView+Autolayout.swift */; };
 		E5FCBB3B238059D10077903D /* BuilderChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB3A238059D10077903D /* BuilderChain.swift */; };
 		E5FCBB3D238059FB0077903D /* NSObject+BuilderChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB3C238059FB0077903D /* NSObject+BuilderChain.swift */; };
+		E5FCBB3F238066530077903D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB3E238066530077903D /* CustomTextField.swift */; };
+		E5FCBB41238066D70077903D /* UIFont+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB40238066D70077903D /* UIFont+Custom.swift */; };
+		E5FCBB43238068FF0077903D /* UIColor+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB42238068FF0077903D /* UIColor+Custom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		E5FCBB37238059830077903D /* UIView+Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
 		E5FCBB3A238059D10077903D /* BuilderChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderChain.swift; sourceTree = "<group>"; };
 		E5FCBB3C238059FB0077903D /* NSObject+BuilderChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+BuilderChain.swift"; sourceTree = "<group>"; };
+		E5FCBB3E238066530077903D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		E5FCBB40238066D70077903D /* UIFont+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Custom.swift"; sourceTree = "<group>"; };
+		E5FCBB42238068FF0077903D /* UIColor+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Custom.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +169,7 @@
 			children = (
 				E5FCBB31238057E50077903D /* BaseView.swift */,
 				E5FCBB34238058490077903D /* ProgressView.swift */,
+				E5FCBB3E238066530077903D /* CustomTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -171,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				E5FCBB37238059830077903D /* UIView+Autolayout.swift */,
+				E5FCBB40238066D70077903D /* UIFont+Custom.swift */,
+				E5FCBB42238068FF0077903D /* UIColor+Custom.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -284,6 +293,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5FCBB43238068FF0077903D /* UIColor+Custom.swift in Sources */,
+				E5FCBB41238066D70077903D /* UIFont+Custom.swift in Sources */,
 				E5FCBB3023804A2A0077903D /* Network.swift in Sources */,
 				E5FCBB3B238059D10077903D /* BuilderChain.swift in Sources */,
 				E5FCBB38238059830077903D /* UIView+Autolayout.swift in Sources */,
@@ -292,6 +303,7 @@
 				E5FCBB2E238049620077903D /* QuizView.swift in Sources */,
 				E5FCBB32238057E50077903D /* BaseView.swift in Sources */,
 				E5FCBB35238058490077903D /* ProgressView.swift in Sources */,
+				E5FCBB3F238066530077903D /* CustomTextField.swift in Sources */,
 				E5FCBB3D238059FB0077903D /* NSObject+BuilderChain.swift in Sources */,
 				E5FCBB05238041DB0077903D /* QuizViewController.swift in Sources */,
 				E5FCBB01238041DB0077903D /* AppDelegate.swift in Sources */,

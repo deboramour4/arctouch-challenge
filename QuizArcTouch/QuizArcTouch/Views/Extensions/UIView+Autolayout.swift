@@ -8,7 +8,6 @@
 
 import UIKit
 
-// MARK: - Anchoring views with constraints
 extension UIView {
     
     @discardableResult

@@ -8,14 +8,43 @@
 
 import UIKit
 
-class CustomTextField: UIView {
+class CustomTextField: UITextField {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    private var textInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8) {
+        didSet { setNeedsDisplay() }
     }
-    */
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initialize()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initialize()
+    }
+    
+    func initialize() {
+        backgroundColor = UIColor.lightGray
+        font = UIFont.body
+        borderStyle = .none
+        layer.masksToBounds = true
+        layer.cornerRadius = 8.0
+    }
 
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: textInsets)
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: textInsets)
+    }
+    
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: textInsets)
+    }
+    
+    override func drawText(in rect: CGRect) {
+        super.drawText(in: bounds.inset(by: textInsets))
+    }
 }
