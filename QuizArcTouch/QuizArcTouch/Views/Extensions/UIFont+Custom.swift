@@ -6,4 +6,10 @@
 //  Copyright © 2019 Débora Oliveira. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+extension UIFont {
+    static let largeTitle = UIFont.boldSystemFont(ofSize: 34)
+    static let body = UIFont.systemFont(ofSize: 17)
+    static let button = UIFont.systemFont(ofSize: 17, weight: .semibold)
+}
