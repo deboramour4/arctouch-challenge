@@ -10,21 +10,19 @@ import UIKit
 
 open class BaseView: UIView {
     
-    var progressView: ProgressView = ProgressView()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setup()
+        setup()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.setup()
+        setup()
     }
     
     required public init() {
         super.init(frame: CGRect.zero)
-        self.setup()
+        setup()
     }
     
     open func initialize() {}
@@ -38,7 +36,7 @@ open class BaseView: UIView {
     }
     
     private func setup() {
-        self.initialize()
-        self.addViews()
+        initialize()
+        addViews()
     }
 }
