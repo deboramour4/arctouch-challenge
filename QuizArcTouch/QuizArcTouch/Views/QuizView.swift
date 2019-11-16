@@ -10,7 +10,7 @@ import UIKit
 
 class QuizView: BaseView {
 
-    lazy var progressView = ProgressView(frame: .zero)
+    lazy var loadingView = LoadingView(frame: .zero)
     
     lazy var titleLabel = UILabel(frame: .zero)
         .set(\.font, to: UIFont.largeTitle)
@@ -22,16 +22,20 @@ class QuizView: BaseView {
         .set(\.placeholder, to: "Insert Word")
     
     lazy var keywordsTableView = UITableView(frame: .zero, style: .plain)
+        .set(\.showsHorizontalScrollIndicator, to: false)
+    
+    lazy var progressView = ProgressView(frame: .zero)
     
     override func initialize() {
         backgroundColor = .white
     }
     
     override func addViews() {
-        addSubview(progressView)
+        addSubview(loadingView)
         addSubview(titleLabel)
         addSubview(inputTextField)
         addSubview(keywordsTableView)
+        addSubview(progressView)
     }
     
     override func autoLayout() {
@@ -50,9 +54,15 @@ class QuizView: BaseView {
             .anchor(top: inputTextField.bottomAnchor, padding: 16)
             .anchor(leading: leadingAnchor, padding: 16)
             .anchor(trailing: trailingAnchor, padding: 16)
-            .anchor(bottom: bottomAnchor)
         
         progressView
+            .anchor(top: keywordsTableView.bottomAnchor)
+            .anchor(leading: leadingAnchor)
+            .anchor(trailing: trailingAnchor)
+            .anchor(bottom: bottomAnchor)
+            .anchor(height: heightAnchor, multiplier: 0.2)
+        
+        loadingView
             .anchor(top: topAnchor)
             .anchor(leading: leadingAnchor)
             .anchor(trailing: trailingAnchor)

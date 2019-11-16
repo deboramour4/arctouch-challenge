@@ -10,67 +10,55 @@ import UIKit
 
 class ProgressView: BaseView {
     
-    lazy var backgroundView = UIView(frame: .zero)
-        .set(\.backgroundColor, to: UIColor(white: 0, alpha: 0.5))
+    lazy var separatorView = UIView(frame: .zero)
+        .set(\.backgroundColor, to: UIColor.gray)
     
-    lazy var containerView = UIView(frame: .zero)
-        .set(\.backgroundColor, to: UIColor(white: 0, alpha: 0.7))
-        .set(\.layer.cornerRadius, to: 16.0)
+    lazy var counterLabel = UILabel(frame: .zero)
+        .set(\.font, to: UIFont.largeTitle)
+        .set(\.numberOfLines, to: 1)
+        .set(\.textColor, to: .black)
+        .set(\.text, to: "07/50")
     
-    lazy var activityIndicator = UIActivityIndicatorView(frame: .zero)
-        .set(\.style, to: .large)
-        .set(\.color, to: UIColor.white)
+    lazy var timerLabel = UILabel(frame: .zero)
+        .set(\.font, to: UIFont.largeTitle)
+        .set(\.numberOfLines, to: 1)
+        .set(\.textColor, to: .black)
+        .set(\.text, to: "04:23")
     
-    lazy var loadingLabel = UILabel(frame: .zero)
-        .set(\.text, to: "Loading...")
-        .set(\.textColor, to: UIColor.white)
-        .set(\.textAlignment, to: .center)
-        .set(\.font, to: UIFont.systemFont(ofSize: 20, weight: .bold))
+    lazy var actionButton = CustomButton(frame: .zero)
+        .set(\.title, to: "Start")
     
     override func initialize() {
-        backgroundView.isHidden = true
+        backgroundColor = UIColor.lightGray
     }
     
     override func addViews() {
-        addSubview(backgroundView)
-        backgroundView.addSubview(containerView)
-        containerView.addSubview(activityIndicator)
-        containerView.addSubview(loadingLabel)
+        addSubview(separatorView)
+        addSubview(counterLabel)
+        addSubview(timerLabel)
+        addSubview(actionButton)
     }
-    
+
     override func autoLayout() {
-        backgroundView
-            .anchor(centerX: centerXAnchor)
-            .anchor(centerY: centerYAnchor)
-            .anchor(width: widthAnchor)
-            .anchor(height: heightAnchor)
+        separatorView
+            .anchor(top: topAnchor)
+            .anchor(leading: leadingAnchor)
+            .anchor(trailing: trailingAnchor)
+            .anchor(heightConstant: 1)
         
-        containerView
-            .anchor(centerX: backgroundView.centerXAnchor)
-            .anchor(centerY: backgroundView.centerYAnchor)
-            .anchor(widthConstant: 200)
-            .anchor(height: containerView.widthAnchor, multiplier: 0.8)
+        counterLabel
+            .anchor(top: separatorView.bottomAnchor, padding: 16)
+            .anchor(leading: leadingAnchor, padding: 16)
         
-        activityIndicator
-            .anchor(centerX: containerView.centerXAnchor)
-            .anchor(centerY: containerView.centerYAnchor, padding: -24)
-            .anchor(width: containerView.widthAnchor, multiplier: 0.5)
-            .anchor(height: activityIndicator.widthAnchor)
+        timerLabel
+            .anchor(top: separatorView.bottomAnchor, padding: 16)
+            .anchor(trailing: trailingAnchor, padding: 16)
         
-        loadingLabel
-            .anchor(centerX: containerView.centerXAnchor)
-            .anchor(centerY: containerView.centerYAnchor, padding: 32)
-            .anchor(leading: containerView.leadingAnchor, padding: 16)
-            .anchor(trailing: containerView.trailingAnchor, padding: 16)
-    }
-    
-    public func show() {
-        backgroundView.isHidden = false
-        activityIndicator.startAnimating()
-    }
-    
-    public func hide() {
-        activityIndicator.stopAnimating()
-        backgroundView.isHidden = true
+        actionButton
+            .anchor(top: counterLabel.bottomAnchor, padding: 16)
+            .anchor(top: timerLabel.bottomAnchor, padding: 16)
+            .anchor(leading: leadingAnchor, padding: 16)
+            .anchor(trailing: trailingAnchor, padding: 16)
+            .anchor(bottom: bottomAnchor, padding: 16)
     }
 }

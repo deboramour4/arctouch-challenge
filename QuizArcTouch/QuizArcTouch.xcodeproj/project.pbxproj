@@ -17,13 +17,15 @@
 		E5FCBB2E238049620077903D /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB2D238049620077903D /* QuizView.swift */; };
 		E5FCBB3023804A2A0077903D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB2F23804A2A0077903D /* Network.swift */; };
 		E5FCBB32238057E50077903D /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB31238057E50077903D /* BaseView.swift */; };
-		E5FCBB35238058490077903D /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB34238058490077903D /* ProgressView.swift */; };
 		E5FCBB38238059830077903D /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB37238059830077903D /* UIView+Autolayout.swift */; };
 		E5FCBB3B238059D10077903D /* BuilderChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB3A238059D10077903D /* BuilderChain.swift */; };
 		E5FCBB3D238059FB0077903D /* NSObject+BuilderChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB3C238059FB0077903D /* NSObject+BuilderChain.swift */; };
 		E5FCBB3F238066530077903D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB3E238066530077903D /* CustomTextField.swift */; };
 		E5FCBB41238066D70077903D /* UIFont+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB40238066D70077903D /* UIFont+Custom.swift */; };
 		E5FCBB43238068FF0077903D /* UIColor+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB42238068FF0077903D /* UIColor+Custom.swift */; };
+		E5FCBB4823806ABE0077903D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB4723806ABE0077903D /* LoadingView.swift */; };
+		E5FCBB4A23806B870077903D /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB4923806B870077903D /* CustomButton.swift */; };
+		E5FCBB4C23806E190077903D /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB4B23806E190077903D /* ProgressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,13 +53,15 @@
 		E5FCBB2D238049620077903D /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		E5FCBB2F23804A2A0077903D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		E5FCBB31238057E50077903D /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		E5FCBB34238058490077903D /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		E5FCBB37238059830077903D /* UIView+Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
 		E5FCBB3A238059D10077903D /* BuilderChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderChain.swift; sourceTree = "<group>"; };
 		E5FCBB3C238059FB0077903D /* NSObject+BuilderChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+BuilderChain.swift"; sourceTree = "<group>"; };
 		E5FCBB3E238066530077903D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		E5FCBB40238066D70077903D /* UIFont+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Custom.swift"; sourceTree = "<group>"; };
 		E5FCBB42238068FF0077903D /* UIColor+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Custom.swift"; sourceTree = "<group>"; };
+		E5FCBB4723806ABE0077903D /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		E5FCBB4923806B870077903D /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		E5FCBB4B23806E190077903D /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,9 +171,11 @@
 		E5FCBB33238058340077903D /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E5FCBB4B23806E190077903D /* ProgressView.swift */,
+				E5FCBB4723806ABE0077903D /* LoadingView.swift */,
 				E5FCBB31238057E50077903D /* BaseView.swift */,
-				E5FCBB34238058490077903D /* ProgressView.swift */,
 				E5FCBB3E238066530077903D /* CustomTextField.swift */,
+				E5FCBB4923806B870077903D /* CustomButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -296,15 +302,17 @@
 				E5FCBB43238068FF0077903D /* UIColor+Custom.swift in Sources */,
 				E5FCBB41238066D70077903D /* UIFont+Custom.swift in Sources */,
 				E5FCBB3023804A2A0077903D /* Network.swift in Sources */,
+				E5FCBB4C23806E190077903D /* ProgressView.swift in Sources */,
 				E5FCBB3B238059D10077903D /* BuilderChain.swift in Sources */,
+				E5FCBB4A23806B870077903D /* CustomButton.swift in Sources */,
 				E5FCBB38238059830077903D /* UIView+Autolayout.swift in Sources */,
 				E5FCBB2B2380444C0077903D /* QuizAnswer.swift in Sources */,
 				E5FCBB29238043E00077903D /* QuizViewModel.swift in Sources */,
 				E5FCBB2E238049620077903D /* QuizView.swift in Sources */,
 				E5FCBB32238057E50077903D /* BaseView.swift in Sources */,
-				E5FCBB35238058490077903D /* ProgressView.swift in Sources */,
 				E5FCBB3F238066530077903D /* CustomTextField.swift in Sources */,
 				E5FCBB3D238059FB0077903D /* NSObject+BuilderChain.swift in Sources */,
+				E5FCBB4823806ABE0077903D /* LoadingView.swift in Sources */,
 				E5FCBB05238041DB0077903D /* QuizViewController.swift in Sources */,
 				E5FCBB01238041DB0077903D /* AppDelegate.swift in Sources */,
 			);
