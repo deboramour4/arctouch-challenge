@@ -25,7 +25,7 @@ class LoadingView: BaseView {
         .set(\.text, to: "Loading...")
         .set(\.textColor, to: UIColor.white)
         .set(\.textAlignment, to: .center)
-        .set(\.font, to: UIFont.systemFont(ofSize: 20, weight: .bold))
+        .set(\.font, to: UIFont.button)
     
     override func initialize() {
         backgroundView.isHidden = true
