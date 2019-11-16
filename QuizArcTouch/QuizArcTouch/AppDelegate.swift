@@ -15,13 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.makeKeyAndVisible()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
         
-        let viewController = ViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
-                
-        self.window?.rootViewController = navigationController
+        let quizViewController = QuizViewController()
+        window?.rootViewController = quizViewController
         
         return true
     }

@@ -9,13 +9,14 @@
 import UIKit
 
 class QuizViewController: UIViewController {
+    
+    let quizView = QuizView()
+    let quizViewModel = QuizViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .red
+        view = quizView
     }
-
-
 }
 

@@ -8,14 +8,24 @@
 
 import UIKit
 
-class QuizView: UIView {
+class QuizView: BaseView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    lazy var progressView = ProgressView(frame: .zero)
+    
+    override func initialize() {
+        
     }
-    */
+    
+    override func addViews() {
+        addSubview(progressView)
+    }
+    
+    override func autoLayout() {
+        progressView
+            .anchor(top: topAnchor)
+            .anchor(leading: leadingAnchor)
+            .anchor(trailing: trailingAnchor)
+            .anchor(bottom: bottomAnchor)
+    }
 
 }
