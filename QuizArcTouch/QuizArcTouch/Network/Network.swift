@@ -8,11 +8,7 @@
 
 import Foundation
 
-// MARK: - Network
-
 class Network: NSObject {
-    
-    // MARK: - Network Error
     
     enum NetworkError: Error {
         case invalidURL
@@ -35,17 +31,11 @@ class Network: NSObject {
     
     var headers: [Network.Headers] = [Headers.contentType]
     
-    // MARK: - Properties
-    
     var apiUrl: URL?
-    
-    // MARK: - Initialization
     
     init(api: URL?) {
         apiUrl = api
     }
-    
-    // MARK: - Class Methods
     
     func get<T: Decodable>(endpoint: String, completion: @escaping ((Result<T, Network.NetworkError>) -> Void)) {
         
