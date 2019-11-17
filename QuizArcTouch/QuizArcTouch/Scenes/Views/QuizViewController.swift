@@ -20,11 +20,14 @@ class QuizViewController: UIViewController {
         
         bind()
         
-        quizViewModel.requestQuizAnswers()
+        quizViewModel.didFinishBinding()
     }
     
     func bind() {
         // Inputs
+        quizView.progressView.actionButton.addTarget(quizViewModel, action: #selector(quizViewModel.didTapActionButton), for: .touchUpInside)
+        
+        quizView.inputTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         // Outputs
         quizViewModel.isLoading = { [weak self] (isLoading) in
@@ -40,10 +43,23 @@ class QuizViewController: UIViewController {
             self?.quizView.titleLabel.text = self?.quizViewModel.titleText
         }
         
-        quizView.progressView.counterLabel.text = quizViewModel.counterText
-        quizView.progressView.timerLabel.text = quizViewModel.timerText
-        quizView.progressView.actionButton.title = quizViewModel.buttonTitle
+        quizViewModel.updatedTimerValue = { [weak self] in
+            self?.quizView.progressView.timerLabel.text = self?.quizViewModel.timerText
+            self?.quizView.progressView.actionButton.title = self?.quizViewModel.buttonTitle
+        }
         
+        quizViewModel.updatedCounterValue = { [weak self] in
+            self?.quizView.inputTextField.text = ""
+            self?.quizView.progressView.counterLabel.text = self?.quizViewModel.counterText
+        }
+        
+        quizViewModel.didWin = {
+            //show alert
+        }
+    }
+    
+    @objc func textFieldDidChange(_ textField : UITextField) {
+        quizViewModel.textFieldDidChange(textField.text)
     }
 }
 

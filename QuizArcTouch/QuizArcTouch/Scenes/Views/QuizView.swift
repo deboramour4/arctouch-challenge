@@ -19,6 +19,7 @@ class QuizView: BaseView {
     
     lazy var inputTextField = CustomTextField(frame: .zero)
         .set(\.delegate, to: self)
+        .set(\.autocapitalizationType, to: .none)
     
     lazy var keywordsTableView = UITableView(frame: .zero, style: .plain)
         .set(\.showsHorizontalScrollIndicator, to: false)
@@ -65,7 +66,15 @@ class QuizView: BaseView {
             .anchor(top: keywordsTableView.bottomAnchor)
             .anchor(leading: leadingAnchor)
             .anchor(trailing: trailingAnchor)
-            .anchor(height: heightAnchor, multiplier: 0.2)
+            .anchor(heightConstant: 135)
+//            .anchor(height: heightAnchor, multiplier: 0.2)
+//        let progressViewHeightConstantConstraint = progressView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2)
+//        progressViewHeightConstantConstraint.priority = .defaultLow
+//        progressViewHeightConstantConstraint.isActive = true
+//
+//        let progressViewMinimumHeightConstraint = progressView.heightAnchor.constraint(greaterThanOrEqualToConstant: 130)
+//        progressViewMinimumHeightConstraint.priority = .defaultHigh
+//        progressViewMinimumHeightConstraint.isActive = true
         
         progressViewBottomConstraint = progressView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         progressViewBottomConstraint?.isActive = true

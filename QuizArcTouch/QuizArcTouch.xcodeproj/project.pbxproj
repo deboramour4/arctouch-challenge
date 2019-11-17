@@ -29,6 +29,7 @@
 		E5FCBB5623807F560077903D /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5FCBB5423807F560077903D /* SF-Pro-Display-Bold.otf */; };
 		E5FCBB5723807F560077903D /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5FCBB5523807F560077903D /* SF-Pro-Display-Regular.otf */; };
 		E5FCBB59238081E00077903D /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5FCBB58238081E00077903D /* SF-Pro-Display-Semibold.otf */; };
+		E5FCBB5E2380CD880077903D /* ProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB5D2380CD880077903D /* ProgressViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		E5FCBB5423807F560077903D /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Bold.otf"; path = "../../../../../../../SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		E5FCBB5523807F560077903D /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Regular.otf"; path = "../../../../../../../SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		E5FCBB58238081E00077903D /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
+		E5FCBB5D2380CD880077903D /* ProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +178,7 @@
 		E5FCBB33238058340077903D /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E5FCBB4B23806E190077903D /* ProgressView.swift */,
+				E5FCBB5C2380CD740077903D /* ProgressView */,
 				E5FCBB4723806ABE0077903D /* LoadingView.swift */,
 				E5FCBB31238057E50077903D /* BaseView.swift */,
 				E5FCBB3E238066530077903D /* CustomTextField.swift */,
@@ -222,6 +224,15 @@
 				E5FCBB25238042A30077903D /* Views */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		E5FCBB5C2380CD740077903D /* ProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				E5FCBB4B23806E190077903D /* ProgressView.swift */,
+				E5FCBB5D2380CD880077903D /* ProgressViewModel.swift */,
+			);
+			path = ProgressView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,6 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5FCBB5E2380CD880077903D /* ProgressViewModel.swift in Sources */,
 				E5FCBB43238068FF0077903D /* UIColor+Custom.swift in Sources */,
 				E5FCBB41238066D70077903D /* UIFont+Custom.swift in Sources */,
 				E5FCBB3023804A2A0077903D /* Network.swift in Sources */,
