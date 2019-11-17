@@ -33,9 +33,14 @@ class QuizView: BaseView {
     
     public lazy var progressView = ProgressView(frame: .zero)
     
-    private var progressViewBottomConstraint: NSLayoutConstraint?
-    
-    private var progressViewBottomKeyboardConstraint: NSLayoutConstraint?
+    // MARK: - Properties
+    private var pViewBottomConstraint: NSLayoutConstraint?
+    private var pViewKeyboardPortraitConstraint: NSLayoutConstraint?
+    private var pViewKeyboardLandscapeConstraint: NSLayoutConstraint?
+    private var currentKeyboardHeight: CGFloat = CGFloat(0)
+    private var portraitKeyboardHeight: CGFloat?
+    private var landscapeKeyboardHeight: CGFloat?
+    private var isInPortraitMode: Bool = true
     
     // MARK: - Base view overrides
     override func initialize() {
@@ -69,24 +74,17 @@ class QuizView: BaseView {
             .anchor(top: inputTextField.bottomAnchor, padding: 16)
             .anchor(leading: leadingAnchor, padding: 16)
             .anchor(trailing: trailingAnchor, padding: 16)
+            .anchor(bottom: safeAreaLayoutGuide.bottomAnchor, padding: 135)
         
         progressView
-            .anchor(top: keywordsTableView.bottomAnchor)
             .anchor(leading: leadingAnchor)
             .anchor(trailing: trailingAnchor)
             .anchor(heightConstant: 135)
-//            .anchor(height: heightAnchor, multiplier: 0.2)
-//        let progressViewHeightConstantConstraint = progressView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2)
-//        progressViewHeightConstantConstraint.priority = .defaultLow
-//        progressViewHeightConstantConstraint.isActive = true
-//
-//        let progressViewMinimumHeightConstraint = progressView.heightAnchor.constraint(greaterThanOrEqualToConstant: 130)
-//        progressViewMinimumHeightConstraint.priority = .defaultHigh
-//        progressViewMinimumHeightConstraint.isActive = true
-        
-        progressViewBottomConstraint = progressView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
-        progressViewBottomConstraint?.isActive = true
-        progressViewBottomKeyboardConstraint = nil
+
+        pViewBottomConstraint = progressView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        pViewBottomConstraint?.isActive = true
+        pViewKeyboardPortraitConstraint = nil
+        pViewKeyboardLandscapeConstraint = nil
         
         loadingView
             .anchor(top: topAnchor)
@@ -103,20 +101,78 @@ class QuizView: BaseView {
         
         let targetFrame = keyboardFrame.cgRectValue
         
-        if let bottomConstraint = progressViewBottomKeyboardConstraint {
-            progressViewBottomConstraint?.isActive = false
-            bottomConstraint.isActive = true
+        updateOrientationMode(keyboardFrame: targetFrame.height)
+        
+        if let portraitConstraint = pViewKeyboardPortraitConstraint {
+                        
+            if isInPortraitMode {
+
+                // Updating active constraints
+                pViewBottomConstraint?.isActive = false
+                pViewKeyboardLandscapeConstraint?.isActive = false
+                portraitConstraint.isActive = true
+
+            } else {
+
+                if let landscapeConstraint = pViewKeyboardLandscapeConstraint, !isInPortraitMode {
+                    
+                    // Updating active constraints
+                    pViewBottomConstraint?.isActive = false
+                    pViewKeyboardPortraitConstraint?.isActive = false
+                    landscapeConstraint.isActive = true
+
+                } else {
+
+                    // First time calculating keyboard height in landscape
+                     guard let landscape = landscapeKeyboardHeight else { return }
+                    currentKeyboardHeight = landscape
+                    
+                    pViewKeyboardLandscapeConstraint = progressView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -landscape)
+                    pViewBottomConstraint?.isActive = false
+                    pViewKeyboardPortraitConstraint?.isActive = false
+                    pViewKeyboardLandscapeConstraint?.isActive = true
+                }
+            }
+
         } else {
-            progressViewBottomKeyboardConstraint = progressView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -targetFrame.height)
-            progressViewBottomConstraint?.isActive = false
-            progressViewBottomKeyboardConstraint?.isActive = true
+            // First time calculating keyboard height in portrait
+            guard let portrait = portraitKeyboardHeight else { return }
+            currentKeyboardHeight = portrait
+            
+            pViewKeyboardPortraitConstraint = progressView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -portrait)
+            pViewBottomConstraint?.isActive = false
+            pViewKeyboardLandscapeConstraint?.isActive = false
+            pViewKeyboardPortraitConstraint?.isActive = true
         }
+        
         layoutIfNeeded()
     }
     
+    private func updateOrientationMode(keyboardFrame: CGFloat) {
+        guard let portrait = portraitKeyboardHeight else {
+            // First time in portrait mode
+            portraitKeyboardHeight = keyboardFrame
+            isInPortraitMode = true
+            return
+        }
+        
+        if keyboardFrame != currentKeyboardHeight {
+            guard let _ = landscapeKeyboardHeight else {
+                // First time landscape mode
+                landscapeKeyboardHeight = keyboardFrame
+                isInPortraitMode = false
+                return
+            }
+        }
+        
+        // Update orientation mode
+        isInPortraitMode = keyboardFrame == portrait ? true : false
+    }
+    
     @objc private func keyboardWillHide(_ notification: Notification) {
-        progressViewBottomKeyboardConstraint?.isActive = false
-        progressViewBottomConstraint?.isActive = true
+        pViewKeyboardPortraitConstraint?.isActive = false
+        pViewKeyboardLandscapeConstraint?.isActive = false
+        pViewBottomConstraint?.isActive = true
         layoutIfNeeded()
     }
     
