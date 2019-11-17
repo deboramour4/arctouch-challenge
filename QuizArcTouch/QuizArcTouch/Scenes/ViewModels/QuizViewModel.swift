@@ -9,16 +9,14 @@
 import Foundation
 
 class QuizViewModel {
-    
-    // Formaters
-    private let numberFormatter = NumberFormatter()
-        .set(\.minimumIntegerDigits, to: 2)
-    
+
+    // Properties
     private var timer: Timer? = nil
     private let totalTimerSeconds: Int = 5 * 60
     private var secondsLeftTimer: Int = 5 * 60
     private var numberOfHits: Int = 0
     private var allHitsStrings: [String] = []
+    private var numberOfAnswers: Int = 0
     
     // Typealias
     typealias QuizAnswerClosure = ((QuizAnswer?) ->(Void))
@@ -29,15 +27,24 @@ class QuizViewModel {
     private var quizAnswer: QuizAnswer?
     private var service: Network
     
-    // Outputs
+    // Binding closures
     public var isLoading: BooleanClosure = nil
     public var updatedQuizAnswer: NotifyClosure = nil
     public var updatedTimerValue: NotifyClosure = nil
     public var updatedCounterValue: NotifyClosure = nil
-    public var didWin: NotifyClosure = nil
+    public var didFinishQuizWinning: BooleanClosure = nil
     
+    // Output strings
     public var textFieldPlaceholder: String? = "Insert Word"
+    public var wonAlertTitle: String? = "Congratulations"
+    public var wonAlertMessage: String? = "Good job! You found all the answers on time. Keep up with the great work."
+    public var wonAlertAction: String? = "Play again"
+    public var lostAlertTitle: String? = "Time finished"
+    public var lostAlertAction: String? = "Try again"
     
+    public var lostAlertMessage: String? {
+        return "Sorry, time is up! You got \(numberOfHits) out of \(numberOfAnswers) answers."
+    }
     public var titleText: String? {
         return quizAnswer?.question
     }
@@ -47,38 +54,25 @@ class QuizViewModel {
         return String(format:"%02i:%02i", minutes, seconds)
     }
     public var buttonTitle: String? {
-        if secondsLeftTimer == totalTimerSeconds {
-            return "Start"
-        } else {
-            return "Reset"
-        }
+        return timer == nil ? "Start" : "Reset"
     }
     public var counterText: String? {
-        let hitsNSNumber = NSNumber(value: numberOfHits)
-        let formattedNumber = numberFormatter.string(from: hitsNSNumber)
-        if let numberString = formattedNumber {
-            return "\(numberString)/50"
-        }
-        return nil
+        return String(format:"%02i/%02i", numberOfHits, numberOfAnswers)
     }
     
+    // Initializer
     init(_ service: Network = Network(api: URL(string: "https://codechallenge.arctouch.com"))) {
         self.service = service
     }
     
-    // Methods
+    // Private Methods
     private func getQuizAnswers(service: Network, _ completion: @escaping QuizAnswerClosure) {
         service.get(endpoint: "/quiz/1") { (result: Result<QuizAnswer, Network.NetworkError>) in
             switch result {
             case .success(let response):
-//                print("Success question: \(response.question)")
                 print("Success answers: \(response.answer)")
                 completion(response)
-            case .failure(let error):
-//                switch error {
-//                default:
-//                    print("Error : \(error.localizedDescription)")
-//                }
+            case .failure(_):
                 completion(nil)
             }
         }
@@ -90,9 +84,23 @@ class QuizViewModel {
             self?.updatedTimerValue?()
             
             if let left = self?.secondsLeftTimer, left <= 0 {
-                timer.invalidate()
+                self?.didFinishQuiz(won: false)
             }
         }
+    }
+    
+    private func invalidateTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    private func resetCounterAndTimer() {
+        secondsLeftTimer = 5 * 60
+        updatedTimerValue?()
+        
+        numberOfHits = 0
+        allHitsStrings = []
+        updatedCounterValue?()
     }
     
     private func checkHit(_ input: String) {
@@ -103,15 +111,18 @@ class QuizViewModel {
             allHitsStrings.append(inputLower)
             updatedCounterValue?()
             
-            if numberOfHits == 50 {
-                timer?.invalidate()
-                timer = nil
-                didWin?()
+            if numberOfHits == numberOfAnswers {
+                didFinishQuiz(won: true)
             }
         }
     }
     
-    // Input
+    private func didFinishQuiz(won: Bool) {
+        invalidateTimer()
+        didFinishQuizWinning?(won)
+    }
+    
+    // Inputs from view
     public func textFieldDidChange(_ text: String?) {
         if let input = text, timer != nil {
             checkHit(input)
@@ -119,8 +130,11 @@ class QuizViewModel {
     }
     
     @objc public func didTapActionButton() {
-        if secondsLeftTimer != 0 {
+        if timer == nil {
             startTimer()
+        } else {
+            invalidateTimer()
+            resetCounterAndTimer()
         }
     }
     
@@ -132,15 +146,22 @@ class QuizViewModel {
         getQuizAnswers(service: service) { [weak self] (response) -> (Void) in
             if let quizAnswer = response {
                 self?.quizAnswer = quizAnswer
+                self?.numberOfAnswers = quizAnswer.answer.count
                 
                 DispatchQueue.main.sync {
+                    self?.updatedCounterValue?()
                     self?.updatedQuizAnswer?()
                     self?.isLoading?(false)
                 }
             } else {
+                // show error
                 print("Error.")
             }
         }
+    }
+    
+    public func didTapAlertAction() {
+        resetCounterAndTimer()
     }
     
 }

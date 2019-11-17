@@ -53,8 +53,20 @@ class QuizViewController: UIViewController {
             self?.quizView.progressView.counterLabel.text = self?.quizViewModel.counterText
         }
         
-        quizViewModel.didWin = {
-            //show alert
+        quizViewModel.didFinishQuizWinning = { [weak self] (didWin) in
+            if didWin {
+                self?.quizView.inputTextField.resignFirstResponder()
+                
+                self?.showAlert(self?.quizViewModel.wonAlertTitle, message: self?.quizViewModel.wonAlertMessage, button: self?.quizViewModel.wonAlertAction, handler: { (alert) in
+                    self?.quizViewModel.didTapAlertAction()
+                })
+            } else {
+                self?.quizView.inputTextField.resignFirstResponder()
+                
+                self?.showAlert(self?.quizViewModel.lostAlertTitle, message: self?.quizViewModel.lostAlertMessage, button: self?.quizViewModel.lostAlertAction, handler: { (alert) in
+                    self?.quizViewModel.didTapAlertAction()
+                })
+            }
         }
     }
     

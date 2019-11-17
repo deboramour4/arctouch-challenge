@@ -30,6 +30,7 @@
 		E5FCBB5723807F560077903D /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5FCBB5523807F560077903D /* SF-Pro-Display-Regular.otf */; };
 		E5FCBB59238081E00077903D /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5FCBB58238081E00077903D /* SF-Pro-Display-Semibold.otf */; };
 		E5FCBB5E2380CD880077903D /* ProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB5D2380CD880077903D /* ProgressViewModel.swift */; };
+		E5FCBB602380E2080077903D /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB5F2380E2080077903D /* UIViewController+Alerts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		E5FCBB5523807F560077903D /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Regular.otf"; path = "../../../../../../../SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		E5FCBB58238081E00077903D /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 		E5FCBB5D2380CD880077903D /* ProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewModel.swift; sourceTree = "<group>"; };
+		E5FCBB5F2380E2080077903D /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 		E5FCBB362380596B0077903D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E5FCBB5F2380E2080077903D /* UIViewController+Alerts.swift */,
 				E5FCBB37238059830077903D /* UIView+Autolayout.swift */,
 				E5FCBB40238066D70077903D /* UIFont+Custom.swift */,
 				E5FCBB42238068FF0077903D /* UIColor+Custom.swift */,
@@ -341,6 +344,7 @@
 				E5FCBB5E2380CD880077903D /* ProgressViewModel.swift in Sources */,
 				E5FCBB43238068FF0077903D /* UIColor+Custom.swift in Sources */,
 				E5FCBB41238066D70077903D /* UIFont+Custom.swift in Sources */,
+				E5FCBB602380E2080077903D /* UIViewController+Alerts.swift in Sources */,
 				E5FCBB3023804A2A0077903D /* Network.swift in Sources */,
 				E5FCBB4C23806E190077903D /* ProgressView.swift in Sources */,
 				E5FCBB3B238059D10077903D /* BuilderChain.swift in Sources */,
