@@ -29,7 +29,6 @@ class QuizViewModel {
     }
     
     // MARK: - Typealias
-    typealias QuizAnswerClosure = ((QuizAnswer?) ->(Void))
     typealias BooleanClosure = ((Bool) -> (Void))?
     typealias NotifyClosure = (() -> (Void))?
     
@@ -37,7 +36,7 @@ class QuizViewModel {
     private var quizAnswer: QuizAnswer?
     
     // MARK: - Network service
-    private var service: Network
+    private var service: QuizService
     
     // MARK: - Binding closures
     public var isLoading: BooleanClosure = nil
@@ -78,24 +77,11 @@ class QuizViewModel {
     }
     
     // MARK: - Initializer
-    init(_ service: Network = Network(api: URL(string: "https://codechallenge.arctouch.com"))) {
+    init(_ service: QuizService = QuizService()) {
         self.service = service
     }
     
     // MARK: - Class Methods
-    private func getQuizAnswersRequest(service: Network, _ completion: @escaping QuizAnswerClosure) {
-        service.headers = [.contentType]
-        
-        service.get(endpoint: "/quiz/1") { (result: Result<QuizAnswer, Network.RequestError>) in
-            switch result {
-            case .success(let response):
-                completion(response)
-            case .failure(_):
-                completion(nil)
-            }
-        }
-    }
-    
     private func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] (timer) in
             self?.secondsLeftTimer -= 1
@@ -141,18 +127,19 @@ class QuizViewModel {
     }
     
     private func requestKeywords() {
-        getQuizAnswersRequest(service: service) { [weak self] (response) -> (Void) in
-            if let quizAnswer = response {
-                self?.quizAnswer = quizAnswer
-                self?.numberOfAnswers = quizAnswer.answer.count
+        isLoading?(true)
+        
+        service.getQuizAnswersRequest { [weak self] (response) -> (Void) in
+            DispatchQueue.main.async {
+                self?.isLoading?(false)
                 
-                DispatchQueue.main.sync {
+                if let quizAnswer = response {
+                    self?.quizAnswer = quizAnswer
+                    self?.numberOfAnswers = quizAnswer.answer.count
+                    
                     self?.updatedCounterValue?()
                     self?.updatedQuizAnswer?()
-                    self?.isLoading?(false)
-                }
-            } else {
-                DispatchQueue.main.sync {
+                } else {
                     self?.gotErrorOnRequest?()
                 }
             }
@@ -160,7 +147,7 @@ class QuizViewModel {
     }
     
     public func getCellViewModel(for indexPath: IndexPath) -> KeywordCellViewModel? {
-        return self.cellViewModels[indexPath.row]
+        return cellViewModels[indexPath.row]
     }
     
     // MARK: - Inputs from view
@@ -182,8 +169,6 @@ class QuizViewModel {
     public func didFinishBinding() {
         updatedTimerValue?()
         updatedCounterValue?()
-        isLoading?(true)
-        
         requestKeywords()
     }
     

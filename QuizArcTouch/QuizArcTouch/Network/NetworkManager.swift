@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Network {
+class NetworkManager {
     
     // MARK: - Error cases
     enum RequestError: Error {
@@ -32,18 +32,22 @@ class Network {
     }
     
     // MARK: - Properties
-    public var headers: [Network.Headers] = [Headers.contentType]
-    private var apiUrl: URL?
+    public var headers: [NetworkManager.Headers] = [Headers.contentType]
+    private var apiURl: URL?
     
-    // MARK: - Initializer
-    init(api: URL?) {
-        apiUrl = api
+    // MARK: - Initializers
+    init(_ apiURL: URL?) {
+        self.apiURl = apiURL
+    }
+    
+    init(_ apiString: String) {
+        apiURl = URL(string: apiString)
     }
     
     // MARK: - HTTP Methods
-    func get<T: Decodable>(endpoint: String, completion: @escaping ((Result<T, Network.RequestError>) -> Void)) {
+    func get<T: Decodable>(endpoint: String, completion: @escaping ((Result<T, NetworkManager.RequestError>) -> Void)) {
         
-        guard let url = apiUrl else { completion(.failure(RequestError.invalidURL)); return }
+        guard let url = apiURl else { completion(.failure(RequestError.invalidURL)); return }
         
         let newUrl = url.appendingPathComponent(endpoint)
 
