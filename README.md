@@ -21,7 +21,7 @@ To run the unit tests you have to:
 ---
 
 ### Screenshots
-Some screenshots of the final project are available on `screenshots` folder.
+Some screenshots of the final project are available on `Screenshots` folder.
 
 ---
 
