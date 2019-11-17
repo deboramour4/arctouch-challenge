@@ -135,7 +135,7 @@ class QuizViewModel {
                 
                 if let quizAnswer = response {
                     self?.quizAnswer = quizAnswer
-                    self?.numberOfAnswers = quizAnswer.answer.count
+                    self?.numberOfAnswers = quizAnswer.answer?.count ?? 0
                     
                     self?.updatedCounterValue?()
                     self?.updatedQuizAnswer?()

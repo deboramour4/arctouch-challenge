@@ -10,25 +10,93 @@ import XCTest
 @testable import QuizArcTouch
 
 class QuizArcTouchTests: XCTestCase {
+    
+    var mockNetworkManager: NetworkManager!
+    var mockQuizService: QuizService!
+    var mockViewModel: QuizViewModel!
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        mockQuizService = QuizService()
+        mockViewModel = QuizViewModel()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        mockNetworkManager = nil
+        mockQuizService = nil
+        mockViewModel = nil
+        super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    // MARK: - Model Tests
+    func testSuccessfulQuizAnswerDecoding() {
+        let json = """
+        {
+          "question": "Any question?",
+          "answer": [
+            "text1",
+            "text2",
+            "text3"
+          ]
+        }
+        """.data(using: .utf8)!
+        
+        do {
+            let quizAnswer = try JSONDecoder().decode(QuizAnswer.self, from: json)
+            
+            XCTAssertEqual(quizAnswer.question, "Any question?")
+            XCTAssertEqual(quizAnswer.answer?.count, 3)
+            XCTAssertEqual(quizAnswer.answer, ["text1", "text2", "text3"])
+        } catch _ {
+            XCTFail()
         }
     }
-
+    
+    func testNilQuizAnswerDecoding() {
+        let json = """
+        {
+          "question": null,
+          "answer": null
+        }
+        """.data(using: .utf8)!
+        
+        do {
+            let quizAnswer = try JSONDecoder().decode(QuizAnswer.self, from: json)
+            
+            XCTAssertNil(quizAnswer.question)
+            XCTAssertNil(quizAnswer.answer)
+        } catch _ {
+            XCTFail()
+        }
+    }
+    
+    // MARK: - Network Tests
+    func testFailRequestingQuizAnswers() {
+        mockNetworkManager = NetworkManager("wrong string url")
+        mockQuizService = QuizService(mockNetworkManager)
+        
+        mockQuizService.getQuizAnswersRequest { (response) -> (Void) in
+            XCTAssertNil(response)
+        }
+    }
+    
+    func testSuccessRequestingQuizAnswers() {
+        mockQuizService.getQuizAnswersRequest { (response) -> (Void) in
+            XCTAssertNotNil(response)
+        }
+    }
+    
+    // MARK: - View Model Tests
+    func testStartTimerCounting() {
+        mockViewModel.didTapActionButton()
+        
+        XCTAssertEqual(mockViewModel.buttonTitle, "Reset")
+    }
+    
+    func testResetTimerAndCounter() {
+        mockViewModel.didTapAlertAction()
+        
+        XCTAssertEqual(mockViewModel.timerText, "05:00")
+        XCTAssertEqual(mockViewModel.counterText, "00/00")
+    }
 }

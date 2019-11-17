@@ -9,6 +9,6 @@
 import Foundation
 
 struct QuizAnswer: Codable {
-    let question: String
-    let answer: [String]
+    let question: String?
+    let answer: [String]?
 }
