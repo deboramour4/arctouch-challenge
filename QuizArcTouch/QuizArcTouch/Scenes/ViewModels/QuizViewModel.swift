@@ -10,12 +10,14 @@ import Foundation
 
 class QuizViewModel {
 
-    // Properties
+    // MARK: - Properties
     private var timer: Timer? = nil
     private let totalTimerSeconds: Int = 5 * 60
     private var secondsLeftTimer: Int = 5 * 60
+    
     private var numberOfHits: Int = 0
     private var numberOfAnswers: Int = 0
+    private var cellViewModels: [KeywordCellViewModel] = []
     
     private var allHitsStrings: [String] = [] {
         didSet {
@@ -25,18 +27,19 @@ class QuizViewModel {
             }
         }
     }
-    private var cellViewModels: [KeywordCellViewModel] = []
     
-    // Typealias
+    // MARK: - Typealias
     typealias QuizAnswerClosure = ((QuizAnswer?) ->(Void))
     typealias BooleanClosure = ((Bool) -> (Void))?
     typealias NotifyClosure = (() -> (Void))?
     
-    // Model
+    // MARK: - Model
     private var quizAnswer: QuizAnswer?
+    
+    // MARK: - Network service
     private var service: Network
     
-    // Binding closures
+    // MARK: - Binding closures
     public var isLoading: BooleanClosure = nil
     public var updatedQuizAnswer: NotifyClosure = nil
     public var updatedTimerValue: NotifyClosure = nil
@@ -44,7 +47,7 @@ class QuizViewModel {
     public var didFinishQuizWinning: BooleanClosure = nil
     public var gotErrorOnRequest: NotifyClosure = nil
     
-    // Output strings
+    // MARK: - Output strings
     public var textFieldPlaceholder: String? = "Insert Word"
     public var wonAlertTitle: String? = "Congratulations"
     public var wonAlertMessage: String? = "Good job! You found all the answers on time. Keep up with the great work."
@@ -53,41 +56,37 @@ class QuizViewModel {
     public var lostAlertAction: String? = "Try again"
     public var errorAlertTitle: String? = "Sorry"
     public var errorAlertMessage: String? = "An error occurred during web request."
-    
     public var lostAlertMessage: String? {
         return "Sorry, time is up! You got \(numberOfHits) out of \(numberOfAnswers) answers."
     }
-    
     public var titleText: String? {
         return quizAnswer?.question
     }
-    
     public var timerText: String? {
         let minutes = Int(secondsLeftTimer) / 60 % 60
         let seconds = Int(secondsLeftTimer) % 60
         return String(format:"%02i:%02i", minutes, seconds)
     }
-    
     public var buttonTitle: String? {
         return timer == nil ? "Start" : "Reset"
     }
-    
     public var counterText: String? {
         return String(format:"%02i/%02i", numberOfHits, numberOfAnswers)
     }
-    
     public var numberOfRows: Int {
         return cellViewModels.count
     }
     
-    // Initializer
+    // MARK: - Initializer
     init(_ service: Network = Network(api: URL(string: "https://codechallenge.arctouch.com"))) {
         self.service = service
     }
     
-    // Private Methods
+    // MARK: - Class Methods
     private func getQuizAnswersRequest(service: Network, _ completion: @escaping QuizAnswerClosure) {
-        service.get(endpoint: "/quiz/1") { (result: Result<QuizAnswer, Network.NetworkError>) in
+        service.headers = [.contentType]
+        
+        service.get(endpoint: "/quiz/1") { (result: Result<QuizAnswer, Network.RequestError>) in
             switch result {
             case .success(let response):
                 completion(response)
@@ -164,7 +163,7 @@ class QuizViewModel {
         return self.cellViewModels[indexPath.row]
     }
     
-    // Inputs from view
+    // MARK: - Inputs from view
     public func textFieldDidChange(_ text: String?) {
         if let input = text, timer != nil {
             checkHit(input)

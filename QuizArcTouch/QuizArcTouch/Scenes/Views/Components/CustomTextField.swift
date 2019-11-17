@@ -10,10 +10,12 @@ import UIKit
 
 class CustomTextField: UITextField {
 
+    // MARK: - Properties
     private var textInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8) {
         didSet { setNeedsDisplay() }
     }
     
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -32,6 +34,7 @@ class CustomTextField: UITextField {
         layer.cornerRadius = 8.0
     }
 
+    // MARK: - Overrides
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: textInsets)
     }

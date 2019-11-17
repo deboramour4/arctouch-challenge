@@ -21,5 +21,4 @@ extension QuizViewController: UITableViewDataSource {
 
         return cell
     }
-    
 }

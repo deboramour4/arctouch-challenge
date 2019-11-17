@@ -9,13 +9,16 @@
 import Foundation
 
 struct KeywordCellViewModel {
-       
+    
+    // MARK: - Properties
     private let keyword: String
     
+    // MARK: - Output strings
     public var keywordText: String {
         return keyword.firstCapitalized
     }
     
+    // MARK: - Initializer
     init(keyword: String) {
         self.keyword = keyword
     }

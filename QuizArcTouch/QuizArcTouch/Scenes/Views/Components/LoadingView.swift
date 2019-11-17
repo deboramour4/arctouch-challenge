@@ -10,6 +10,7 @@ import UIKit
 
 class LoadingView: BaseView {
     
+    // MARK: - View elements
     lazy var containerView = UIView(frame: .zero)
         .set(\.backgroundColor, to: UIColor(white: 0, alpha: 0.7))
         .set(\.layer.cornerRadius, to: 16.0)
@@ -24,6 +25,7 @@ class LoadingView: BaseView {
         .set(\.textAlignment, to: .center)
         .set(\.font, to: UIFont.button)
     
+    // MARK: - Base view overrides
     override func initialize() {
         backgroundColor = UIColor(white: 0, alpha: 0.5)
     }

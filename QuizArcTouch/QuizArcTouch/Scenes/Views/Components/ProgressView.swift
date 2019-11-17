@@ -10,6 +10,7 @@ import UIKit
 
 class ProgressView: BaseView {
     
+    // MARK: - View elements
     lazy var separatorView = UIView(frame: .zero)
         .set(\.backgroundColor, to: UIColor.gray)
     
@@ -25,6 +26,7 @@ class ProgressView: BaseView {
     
     lazy var actionButton = CustomButton(frame: .zero)
     
+    // MARK: - Base view overrides
     override func initialize() {
         backgroundColor = UIColor.lightGray
     }

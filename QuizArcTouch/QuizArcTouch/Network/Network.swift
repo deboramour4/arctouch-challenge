@@ -8,9 +8,10 @@
 
 import Foundation
 
-class Network: NSObject {
+class Network {
     
-    enum NetworkError: Error {
+    // MARK: - Error cases
+    enum RequestError: Error {
         case invalidURL
         case parseError
         case requestError
@@ -18,6 +19,7 @@ class Network: NSObject {
         case unknown
     }
     
+    // MARK: - Request header types
     enum Headers {
         case contentType
         
@@ -29,17 +31,19 @@ class Network: NSObject {
         }
     }
     
-    var headers: [Network.Headers] = [Headers.contentType]
+    // MARK: - Properties
+    public var headers: [Network.Headers] = [Headers.contentType]
+    private var apiUrl: URL?
     
-    var apiUrl: URL?
-    
+    // MARK: - Initializer
     init(api: URL?) {
         apiUrl = api
     }
     
-    func get<T: Decodable>(endpoint: String, completion: @escaping ((Result<T, Network.NetworkError>) -> Void)) {
+    // MARK: - HTTP Methods
+    func get<T: Decodable>(endpoint: String, completion: @escaping ((Result<T, Network.RequestError>) -> Void)) {
         
-        guard let url = apiUrl else { completion(.failure(NetworkError.invalidURL)); return }
+        guard let url = apiUrl else { completion(.failure(RequestError.invalidURL)); return }
         
         let newUrl = url.appendingPathComponent(endpoint)
 
@@ -55,11 +59,11 @@ class Network: NSObject {
             
             switch result {
             case .failure(_):
-                completion(.failure(NetworkError.unknown))
+                completion(.failure(RequestError.unknown))
                 
             case .success(let response, let data):
                 guard let httpResponse = response as? HTTPURLResponse else {
-                    return completion(.failure(NetworkError.noJSONData))
+                    return completion(.failure(RequestError.noJSONData))
                 }
                 
                 let decoder = JSONDecoder()
@@ -71,34 +75,14 @@ class Network: NSObject {
                         let model = try decoder.decode(T.self, from: data)
                         completion(.success(model))
                     } catch {
-                        completion(.failure(NetworkError.parseError))
+                        completion(.failure(RequestError.parseError))
                     }
                 case 400...499:
-                    completion(.failure(NetworkError.unknown))
+                    completion(.failure(RequestError.unknown))
                 default:
-                    completion(.failure(NetworkError.unknown))
+                    completion(.failure(RequestError.unknown))
                 }
             }
         }.resume()
-    }
-}
-
-extension URLSession {
-    func dataTask(
-        with url: URLRequest,
-        result: @escaping (Result<(URLResponse, Data), Error>) -> Void) -> URLSessionDataTask {
-
-        return dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                result(.failure(error))
-                return
-            }
-            guard let response = response, let data = data else {
-                let error = NSError(domain: "error", code: 0, userInfo: nil)
-                result(.failure(error))
-                return
-            }
-            result(.success((response, data)))
-        }
     }
 }

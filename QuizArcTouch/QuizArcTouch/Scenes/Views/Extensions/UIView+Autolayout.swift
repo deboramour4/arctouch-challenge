@@ -9,7 +9,6 @@
 import UIKit
 
 extension UIView {
-    
     @discardableResult
     func anchor(top: NSLayoutYAxisAnchor, padding: CGFloat = 0) -> Self {
         self.translatesAutoresizingMaskIntoConstraints = false

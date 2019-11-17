@@ -10,9 +10,11 @@ import UIKit
 
 class QuizViewController: UIViewController {
     
+    // MARK: - Properties
     let quizView = QuizView()
     let quizViewModel = QuizViewModel()
 
+    // MARK: - Initializers
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +27,9 @@ class QuizViewController: UIViewController {
         quizView.keywordsTableView.dataSource = self
     }
     
+    // MARK: - Binding with ViewModel
     func bind() {
+        
         // Inputs
         quizView.progressView.actionButton.addTarget(quizViewModel, action: #selector(quizViewModel.didTapActionButton), for: .touchUpInside)
         

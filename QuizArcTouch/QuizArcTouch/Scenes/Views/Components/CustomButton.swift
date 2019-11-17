@@ -10,12 +10,14 @@ import UIKit
 
 class CustomButton: UIButton {
     
+    // MARK: - Properties
     public var title: String? {
         didSet {
             setTitle(title, for: .normal)
         }
     }
-
+    
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()

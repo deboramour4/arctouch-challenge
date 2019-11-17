@@ -10,18 +10,20 @@ import UIKit
 
 class QuizView: BaseView {
 
-    lazy var loadingView = LoadingView(frame: .zero)
+    // MARK: - View elements
+    public lazy var loadingView = LoadingView(frame: .zero)
     
-    lazy var titleLabel = UILabel(frame: .zero)
+    public lazy var titleLabel = UILabel(frame: .zero)
         .set(\.font, to: UIFont.largeTitle)
         .set(\.numberOfLines, to: 0)
         .set(\.textColor, to: .black)
     
-    lazy var inputTextField = CustomTextField(frame: .zero)
+    public lazy var inputTextField = CustomTextField(frame: .zero)
         .set(\.delegate, to: self)
         .set(\.autocapitalizationType, to: .none)
     
-    lazy var keywordsTableView = UITableView(frame: .zero, style: .plain)
+    public lazy var keywordsTableView = UITableView(frame: .zero, style: .plain)
+        .set(\.showsHorizontalScrollIndicator, to: false)
         .set(\.showsHorizontalScrollIndicator, to: false)
         .set(\.tableFooterView, to: UIView())
         .set(\.allowsSelection, to: false)
@@ -29,11 +31,13 @@ class QuizView: BaseView {
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
     }
     
-    lazy var progressView = ProgressView(frame: .zero)
+    public lazy var progressView = ProgressView(frame: .zero)
     
     private var progressViewBottomConstraint: NSLayoutConstraint?
+    
     private var progressViewBottomKeyboardConstraint: NSLayoutConstraint?
     
+    // MARK: - Base view overrides
     override func initialize() {
         backgroundColor = .white
         
@@ -91,6 +95,7 @@ class QuizView: BaseView {
             .anchor(bottom: bottomAnchor)
     }
     
+    // MARK: - Class methods
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return

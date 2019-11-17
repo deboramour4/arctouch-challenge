@@ -10,6 +10,7 @@
 		E5C66A1F23818A8F0045F735 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5C66A1C23818A8F0045F735 /* SF-Pro-Display-Bold.otf */; };
 		E5C66A2023818A8F0045F735 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5C66A1D23818A8F0045F735 /* SF-Pro-Display-Regular.otf */; };
 		E5C66A2123818A8F0045F735 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5C66A1E23818A8F0045F735 /* SF-Pro-Display-Semibold.otf */; };
+		E5C66A23238197010045F735 /* URLSession+DataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C66A22238197010045F735 /* URLSession+DataTask.swift */; };
 		E5FCBB01238041DB0077903D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB00238041DB0077903D /* AppDelegate.swift */; };
 		E5FCBB05238041DB0077903D /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB04238041DB0077903D /* QuizViewController.swift */; };
 		E5FCBB0A238041E10077903D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5FCBB09238041E10077903D /* Assets.xcassets */; };
@@ -29,7 +30,6 @@
 		E5FCBB4823806ABE0077903D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB4723806ABE0077903D /* LoadingView.swift */; };
 		E5FCBB4A23806B870077903D /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB4923806B870077903D /* CustomButton.swift */; };
 		E5FCBB4C23806E190077903D /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB4B23806E190077903D /* ProgressView.swift */; };
-		E5FCBB5E2380CD880077903D /* ProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB5D2380CD880077903D /* ProgressViewModel.swift */; };
 		E5FCBB602380E2080077903D /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB5F2380E2080077903D /* UIViewController+Alerts.swift */; };
 		E5FCBB622381817E0077903D /* KeywordCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB612381817E0077903D /* KeywordCellViewModel.swift */; };
 		E5FCBB64238185440077903D /* String+Capitalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FCBB63238185440077903D /* String+Capitalization.swift */; };
@@ -50,6 +50,7 @@
 		E5C66A1C23818A8F0045F735 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		E5C66A1D23818A8F0045F735 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		E5C66A1E23818A8F0045F735 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
+		E5C66A22238197010045F735 /* URLSession+DataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+DataTask.swift"; sourceTree = "<group>"; };
 		E5FCBAFD238041DB0077903D /* QuizArcTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizArcTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5FCBB00238041DB0077903D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5FCBB04238041DB0077903D /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
@@ -73,7 +74,6 @@
 		E5FCBB4723806ABE0077903D /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E5FCBB4923806B870077903D /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		E5FCBB4B23806E190077903D /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
-		E5FCBB5D2380CD880077903D /* ProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewModel.swift; sourceTree = "<group>"; };
 		E5FCBB5F2380E2080077903D /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		E5FCBB612381817E0077903D /* KeywordCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordCellViewModel.swift; sourceTree = "<group>"; };
 		E5FCBB63238185440077903D /* String+Capitalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Capitalization.swift"; sourceTree = "<group>"; };
@@ -119,6 +119,7 @@
 		E5FCBAFF238041DB0077903D /* QuizArcTouch */ = {
 			isa = PBXGroup;
 			children = (
+				E5FCBB27238042C00077903D /* Models */,
 				E5FCBB5A238083CB0077903D /* Scenes */,
 				E5FCBB392380599E0077903D /* Helpers */,
 				E5FCBB2C238049340077903D /* Network */,
@@ -181,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				E5FCBB2F23804A2A0077903D /* Network.swift */,
+				E5C66A22238197010045F735 /* URLSession+DataTask.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -188,7 +190,7 @@
 		E5FCBB33238058340077903D /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E5FCBB5C2380CD740077903D /* ProgressView */,
+				E5FCBB4B23806E190077903D /* ProgressView.swift */,
 				E5FCBB4723806ABE0077903D /* LoadingView.swift */,
 				E5FCBB31238057E50077903D /* BaseView.swift */,
 				E5FCBB3E238066530077903D /* CustomTextField.swift */,
@@ -231,20 +233,10 @@
 		E5FCBB5A238083CB0077903D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				E5FCBB27238042C00077903D /* Models */,
 				E5FCBB26238042B30077903D /* ViewModels */,
 				E5FCBB25238042A30077903D /* Views */,
 			);
 			path = Scenes;
-			sourceTree = "<group>";
-		};
-		E5FCBB5C2380CD740077903D /* ProgressView */ = {
-			isa = PBXGroup;
-			children = (
-				E5FCBB4B23806E190077903D /* ProgressView.swift */,
-				E5FCBB5D2380CD880077903D /* ProgressViewModel.swift */,
-			);
-			path = ProgressView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,7 +342,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5FCBB5E2380CD880077903D /* ProgressViewModel.swift in Sources */,
 				E5FCBB43238068FF0077903D /* UIColor+Custom.swift in Sources */,
 				E5FCBB64238185440077903D /* String+Capitalization.swift in Sources */,
 				E5FCBB41238066D70077903D /* UIFont+Custom.swift in Sources */,
@@ -367,6 +358,7 @@
 				E5FCBB32238057E50077903D /* BaseView.swift in Sources */,
 				E5FCBB3F238066530077903D /* CustomTextField.swift in Sources */,
 				E5FCBB3D238059FB0077903D /* NSObject+BuilderChain.swift in Sources */,
+				E5C66A23238197010045F735 /* URLSession+DataTask.swift in Sources */,
 				E5FCBB4823806ABE0077903D /* LoadingView.swift in Sources */,
 				E5FCBB05238041DB0077903D /* QuizViewController.swift in Sources */,
 				E5FCBB662381866B0077903D /* QuizViewController+UITableViewDataSource.swift in Sources */,
