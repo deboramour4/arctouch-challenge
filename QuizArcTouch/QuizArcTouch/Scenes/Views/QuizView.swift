@@ -24,6 +24,10 @@ class QuizView: BaseView {
     lazy var keywordsTableView = UITableView(frame: .zero, style: .plain)
         .set(\.showsHorizontalScrollIndicator, to: false)
         .set(\.tableFooterView, to: UIView())
+        .set(\.allowsSelection, to: false)
+        .run { (tableView) in
+            tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
+    }
     
     lazy var progressView = ProgressView(frame: .zero)
     

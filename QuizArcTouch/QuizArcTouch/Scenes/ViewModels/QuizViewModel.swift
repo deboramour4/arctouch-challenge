@@ -15,8 +15,17 @@ class QuizViewModel {
     private let totalTimerSeconds: Int = 5 * 60
     private var secondsLeftTimer: Int = 5 * 60
     private var numberOfHits: Int = 0
-    private var allHitsStrings: [String] = []
     private var numberOfAnswers: Int = 0
+    
+    private var allHitsStrings: [String] = [] {
+        didSet {
+            let hitsReverseOrder = allHitsStrings.reversed()
+            cellViewModels = hitsReverseOrder.map { (keyword) in
+                KeywordCellViewModel(keyword: keyword)
+            }
+        }
+    }
+    private var cellViewModels: [KeywordCellViewModel] = []
     
     // Typealias
     typealias QuizAnswerClosure = ((QuizAnswer?) ->(Void))
@@ -33,6 +42,7 @@ class QuizViewModel {
     public var updatedTimerValue: NotifyClosure = nil
     public var updatedCounterValue: NotifyClosure = nil
     public var didFinishQuizWinning: BooleanClosure = nil
+    public var gotErrorOnRequest: NotifyClosure = nil
     
     // Output strings
     public var textFieldPlaceholder: String? = "Insert Word"
@@ -41,23 +51,33 @@ class QuizViewModel {
     public var wonAlertAction: String? = "Play again"
     public var lostAlertTitle: String? = "Time finished"
     public var lostAlertAction: String? = "Try again"
+    public var errorAlertTitle: String? = "Sorry"
+    public var errorAlertMessage: String? = "An error occurred during web request."
     
     public var lostAlertMessage: String? {
         return "Sorry, time is up! You got \(numberOfHits) out of \(numberOfAnswers) answers."
     }
+    
     public var titleText: String? {
         return quizAnswer?.question
     }
+    
     public var timerText: String? {
         let minutes = Int(secondsLeftTimer) / 60 % 60
         let seconds = Int(secondsLeftTimer) % 60
         return String(format:"%02i:%02i", minutes, seconds)
     }
+    
     public var buttonTitle: String? {
         return timer == nil ? "Start" : "Reset"
     }
+    
     public var counterText: String? {
         return String(format:"%02i/%02i", numberOfHits, numberOfAnswers)
+    }
+    
+    public var numberOfRows: Int {
+        return cellViewModels.count
     }
     
     // Initializer
@@ -66,11 +86,10 @@ class QuizViewModel {
     }
     
     // Private Methods
-    private func getQuizAnswers(service: Network, _ completion: @escaping QuizAnswerClosure) {
+    private func getQuizAnswersRequest(service: Network, _ completion: @escaping QuizAnswerClosure) {
         service.get(endpoint: "/quiz/1") { (result: Result<QuizAnswer, Network.NetworkError>) in
             switch result {
             case .success(let response):
-                print("Success answers: \(response.answer)")
                 completion(response)
             case .failure(_):
                 completion(nil)
@@ -122,6 +141,29 @@ class QuizViewModel {
         didFinishQuizWinning?(won)
     }
     
+    private func requestKeywords() {
+        getQuizAnswersRequest(service: service) { [weak self] (response) -> (Void) in
+            if let quizAnswer = response {
+                self?.quizAnswer = quizAnswer
+                self?.numberOfAnswers = quizAnswer.answer.count
+                
+                DispatchQueue.main.sync {
+                    self?.updatedCounterValue?()
+                    self?.updatedQuizAnswer?()
+                    self?.isLoading?(false)
+                }
+            } else {
+                DispatchQueue.main.sync {
+                    self?.gotErrorOnRequest?()
+                }
+            }
+        }
+    }
+    
+    public func getCellViewModel(for indexPath: IndexPath) -> KeywordCellViewModel? {
+        return self.cellViewModels[indexPath.row]
+    }
+    
     // Inputs from view
     public func textFieldDidChange(_ text: String?) {
         if let input = text, timer != nil {
@@ -143,25 +185,15 @@ class QuizViewModel {
         updatedCounterValue?()
         isLoading?(true)
         
-        getQuizAnswers(service: service) { [weak self] (response) -> (Void) in
-            if let quizAnswer = response {
-                self?.quizAnswer = quizAnswer
-                self?.numberOfAnswers = quizAnswer.answer.count
-                
-                DispatchQueue.main.sync {
-                    self?.updatedCounterValue?()
-                    self?.updatedQuizAnswer?()
-                    self?.isLoading?(false)
-                }
-            } else {
-                // show error
-                print("Error.")
-            }
-        }
+        requestKeywords()
     }
     
     public func didTapAlertAction() {
         resetCounterAndTimer()
+    }
+    
+    public func didTapErrorAlertAction() {
+        requestKeywords()
     }
     
 }

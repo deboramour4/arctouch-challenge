@@ -21,6 +21,8 @@ class QuizViewController: UIViewController {
         bind()
         
         quizViewModel.didFinishBinding()
+        
+        quizView.keywordsTableView.dataSource = self
     }
     
     func bind() {
@@ -51,6 +53,7 @@ class QuizViewController: UIViewController {
         quizViewModel.updatedCounterValue = { [weak self] in
             self?.quizView.inputTextField.text = ""
             self?.quizView.progressView.counterLabel.text = self?.quizViewModel.counterText
+            self?.quizView.keywordsTableView.reloadData()
         }
         
         quizViewModel.didFinishQuizWinning = { [weak self] (didWin) in
@@ -67,6 +70,12 @@ class QuizViewController: UIViewController {
                     self?.quizViewModel.didTapAlertAction()
                 })
             }
+        }
+        
+        quizViewModel.gotErrorOnRequest = { [weak self] in
+            self?.showAlert(self?.quizViewModel.errorAlertTitle, message: self?.quizViewModel.errorAlertMessage, button: self?.quizViewModel.lostAlertAction, handler: { (alert) in
+                self?.quizViewModel.didTapErrorAlertAction()
+            })
         }
     }
     
