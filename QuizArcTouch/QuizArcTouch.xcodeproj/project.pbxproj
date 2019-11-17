@@ -109,12 +109,10 @@
 		E5FCBAFF238041DB0077903D /* QuizArcTouch */ = {
 			isa = PBXGroup;
 			children = (
+				E5FCBB5A238083CB0077903D /* Scenes */,
 				E5FCBB392380599E0077903D /* Helpers */,
 				E5FCBB2C238049340077903D /* Network */,
 				E5FCBB22238042480077903D /* Resources */,
-				E5FCBB27238042C00077903D /* Models */,
-				E5FCBB26238042B30077903D /* ViewModels */,
-				E5FCBB25238042A30077903D /* Views */,
 				E5FCBB0E238041E10077903D /* Info.plist */,
 				E5FCBB00238041DB0077903D /* AppDelegate.swift */,
 			);
@@ -214,6 +212,16 @@
 				E5FCBB5523807F560077903D /* SF-Pro-Display-Regular.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E5FCBB5A238083CB0077903D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				E5FCBB27238042C00077903D /* Models */,
+				E5FCBB26238042B30077903D /* ViewModels */,
+				E5FCBB25238042A30077903D /* Views */,
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

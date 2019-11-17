@@ -17,16 +17,13 @@ class ProgressView: BaseView {
         .set(\.font, to: UIFont.largeTitle)
         .set(\.numberOfLines, to: 1)
         .set(\.textColor, to: .black)
-        .set(\.text, to: "07/50")
     
     lazy var timerLabel = UILabel(frame: .zero)
         .set(\.font, to: UIFont.largeTitle)
         .set(\.numberOfLines, to: 1)
         .set(\.textColor, to: .black)
-        .set(\.text, to: "04:23")
     
     lazy var actionButton = CustomButton(frame: .zero)
-        .set(\.title, to: "Start")
     
     override func initialize() {
         backgroundColor = UIColor.lightGray

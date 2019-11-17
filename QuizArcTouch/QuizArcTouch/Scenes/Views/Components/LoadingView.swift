@@ -10,9 +10,6 @@ import UIKit
 
 class LoadingView: BaseView {
     
-    lazy var backgroundView = UIView(frame: .zero)
-        .set(\.backgroundColor, to: UIColor(white: 0, alpha: 0.5))
-    
     lazy var containerView = UIView(frame: .zero)
         .set(\.backgroundColor, to: UIColor(white: 0, alpha: 0.7))
         .set(\.layer.cornerRadius, to: 16.0)
@@ -28,26 +25,19 @@ class LoadingView: BaseView {
         .set(\.font, to: UIFont.button)
     
     override func initialize() {
-        backgroundView.isHidden = true
+        backgroundColor = UIColor(white: 0, alpha: 0.5)
     }
     
     override func addViews() {
-        addSubview(backgroundView)
-        backgroundView.addSubview(containerView)
+        addSubview(containerView)
         containerView.addSubview(activityIndicator)
         containerView.addSubview(loadingLabel)
     }
     
     override func autoLayout() {
-        backgroundView
+        containerView
             .anchor(centerX: centerXAnchor)
             .anchor(centerY: centerYAnchor)
-            .anchor(width: widthAnchor)
-            .anchor(height: heightAnchor)
-        
-        containerView
-            .anchor(centerX: backgroundView.centerXAnchor)
-            .anchor(centerY: backgroundView.centerYAnchor)
             .anchor(widthConstant: 200)
             .anchor(height: containerView.widthAnchor, multiplier: 0.8)
         
@@ -62,15 +52,5 @@ class LoadingView: BaseView {
             .anchor(centerY: containerView.centerYAnchor, padding: 32)
             .anchor(leading: containerView.leadingAnchor, padding: 16)
             .anchor(trailing: containerView.trailingAnchor, padding: 16)
-    }
-    
-    public func show() {
-        backgroundView.isHidden = false
-        activityIndicator.startAnimating()
-    }
-    
-    public func hide() {
-        activityIndicator.stopAnimating()
-        backgroundView.isHidden = true
     }
 }

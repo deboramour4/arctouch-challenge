@@ -16,10 +16,8 @@ class QuizView: BaseView {
         .set(\.font, to: UIFont.largeTitle)
         .set(\.numberOfLines, to: 0)
         .set(\.textColor, to: .black)
-        .set(\.text, to: "What are all the java keywords?")
     
     lazy var inputTextField = CustomTextField(frame: .zero)
-        .set(\.placeholder, to: "Insert Word")
         .set(\.delegate, to: self)
     
     lazy var keywordsTableView = UITableView(frame: .zero, style: .plain)
@@ -39,11 +37,11 @@ class QuizView: BaseView {
     }
     
     override func addViews() {
-        addSubview(loadingView)
         addSubview(titleLabel)
         addSubview(inputTextField)
         addSubview(keywordsTableView)
         addSubview(progressView)
+        addSubview(loadingView)
     }
     
     override func autoLayout() {
@@ -102,5 +100,15 @@ class QuizView: BaseView {
         progressViewBottomKeyboardConstraint?.isActive = false
         progressViewBottomConstraint?.isActive = true
         layoutIfNeeded()
+    }
+    
+    public func startLoading() {
+        loadingView.isHidden = false
+        loadingView.activityIndicator.startAnimating()
+    }
+    
+    public func endLoading() {
+        loadingView.activityIndicator.stopAnimating()
+        loadingView.isHidden = true
     }
 }
