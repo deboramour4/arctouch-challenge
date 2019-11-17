@@ -16,7 +16,7 @@ class LoadingView: BaseView {
         .set(\.layer.cornerRadius, to: 16.0)
     
     lazy var activityIndicator = UIActivityIndicatorView(frame: .zero)
-        .set(\.style, to: .large)
+        .set(\.style, to: .whiteLarge)
         .set(\.color, to: UIColor.white)
     
     lazy var loadingLabel = UILabel(frame: .zero)
